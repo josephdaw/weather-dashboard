@@ -1,5 +1,6 @@
 
 const fetchButton = document.getElementById('fetch-button');
+const forecastContainerEl = $('#forecast-container');
 
 function getAPI() {
     const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
@@ -18,9 +19,16 @@ function getAPI() {
         console.log('humidity ' + data.main.humidity)
         console.log('wind speed ' + data.wind.speed)
         console.log('UV index ' + data.main.humidity)
-        
+        displayForecastEl()
       });
 
+      
+
+};
+
+function displayForecastEl(){
+  $('#forecast-container').removeClass('is-hidden');
+  $('#long-range-forecast-container').removeClass('is-hidden');
 };
 
 fetchButton.addEventListener('click', getAPI);
