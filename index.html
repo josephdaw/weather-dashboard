@@ -18,7 +18,7 @@
   <title>Weather Dashboard</title>
 </head>
 
-<body>
+<body class="bg-gray">
   <header class="navbar">
     <section class="navbar-section">
       <a href="#" class="btn btn-link">Docs</a>
@@ -35,61 +35,170 @@
   </header>
 
   <main>
-    <div class="hero bg-gray">
+    <div class="hero">
       <div class="hero-body">
         <h1>Weather Dashboard</h1>
         <p>This awesome dashboard is the only place you need to visit to get your forecast.</p>
       </div>
     </div>
 
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">Select a Location</div>
-      </div>
-      <div class="panel-nav">
-        <!-- navigation components: tabs, breadcrumbs or pagination -->
-      </div>
-      <div class="panel-body">
-        <!-- form input control -->
-        <div class="form-group">
-          <label class="form-label" for="input-example-1">Location</label>
-          <input class="form-input" type="text" id="input-example-1" placeholder="Type a place for its Weather">
+    <div class="container">
+      <div class="columns">
+        <div class="column col-xs-12 col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              <div class="panel-title">Select a Location</div>
+            </div>
+            <div class="card-body">
+              <!-- form input control -->
+              <div class="form-group">
+                <label class="form-label" for="input-example-1">Location</label>
+                <input class="form-input" type="text" id="input-example-1" placeholder="Type a place for its Weather">
+                <button class="btn btn-primary mt-2">Search</button>
+              </div>
+              <div>
+                <ul>
+                  <li>Melbourne</li>
+                  <li>Adelaide</li>
+                  </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="column col-xs-12 col-sm-6">
+          <div class="card">
+            <!-- <div class="card-image">
+              <img src="img/osx-el-capitan.jpg" class="img-responsive">
+            </div> -->
+            <div class="card-header">
+              <div class="card-title h5">Weather in ... is ...</div>
+              <div class="card-subtitle text-gray">Fine and Sunny</div>
+            </div>
+            <div class="card-body">
+              Chance of rain
+            </div>
+            
+          </div>
         </div>
       </div>
-      <div class="panel-footer">
-        <!-- buttons or inputs -->
+    </div>
+
+
+
+    <div class="container">
+      <h2>5-day forecast</h2>
+      <div class="columns">
+        <div class="column col-mx-auto">
+          <div class="card ">
+            <div class="card-image">
+              <img src="img/osx-el-capitan.jpg" class="img-responsive">
+            </div>
+            <div class="card-header">
+              <div class="card-title h5">...</div>
+              <div class="card-subtitle text-gray">...</div>
+            </div>
+            <div class="card-body">
+              ...
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">...</button>
+            </div>
+          </div>
+        </div>
+        <div class="column col-mx-auto">
+          <div class="card ">
+            <div class="card-image">
+              <img src="img/osx-el-capitan.jpg" class="img-responsive">
+            </div>
+            <div class="card-header">
+              <div class="card-title h5">...</div>
+              <div class="card-subtitle text-gray">...</div>
+            </div>
+            <div class="card-body">
+              ...
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">...</button>
+            </div>
+          </div>
+        </div>
+        <div class="column col-mx-auto">
+          <div class="card ">
+            <div class="card-image">
+              <img src="img/osx-el-capitan.jpg" class="img-responsive">
+            </div>
+            <div class="card-header">
+              <div class="card-title h5">...</div>
+              <div class="card-subtitle text-gray">...</div>
+            </div>
+            <div class="card-body">
+              ...
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">...</button>
+            </div>
+          </div>
+        </div>
+        <div class="column col-mx-auto">
+          <div class="card ">
+            <div class="card-image">
+              <img src="img/osx-el-capitan.jpg" class="img-responsive">
+            </div>
+            <div class="card-header">
+              <div class="card-title h5">...</div>
+              <div class="card-subtitle text-gray">...</div>
+            </div>
+            <div class="card-body">
+              ...
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">...</button>
+            </div>
+          </div>
+        </div>
+        <div class="column col-mx-auto">
+          <div class="card ">
+            <div class="card-image">
+              <img src="img/osx-el-capitan.jpg" class="img-responsive">
+            </div>
+            <div class="card-header">
+              <div class="card-title h5">...</div>
+              <div class="card-subtitle text-gray">...</div>
+            </div>
+            <div class="card-body">
+              ...
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-primary">...</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
 
 
-    <div class="card">
-      <div class="card-image">
-        <img src="img/osx-el-capitan.jpg" class="img-responsive">
-      </div>
-      <div class="card-header">
-        <div class="card-title h5">...</div>
-        <div class="card-subtitle text-gray">...</div>
-      </div>
-      <div class="card-body">
-        ...
-      </div>
-      <div class="card-footer">
-        <button class="btn btn-primary">...</button>
-      </div>
-    </div>
+
   </main>
 
+  
   <!-- footer -->
-  <footer>
-    <nav>
-      <a href="http://www.github.com/josephdaw" target="_blank">GitHub</a>
-      <a href="http://www.josephdaw.com/blog" target="_blank">Blog</a>
-      <a href="https://twitter.com/Joseph_Daw" target="_blank">Twitter</a>
-      <a href="https://www.linkedin.com/in/joseph-daw" target="_blank">LinkedIn</a>
-    </nav>
-    <p>&copy; 2021 Joseph Daw</p>
+  <footer class="navbar">
+    
+    <section class="navbar-section">
+      <p class="mb-0 ml-2">&copy; 2021 Joseph Daw</p>
+    </section>
+    <section class="navbar-section">
+      <!-- &copy; 2021 Joseph Daw -->
+      <a href="http://www.github.com/josephdaw" class="btn btn-link" target="_blank">GitHub</a>
+      <a href="http://www.josephdaw.com/blog" class="btn btn-link" target="_blank">Blog</a>
+      <a href="https://twitter.com/Joseph_Daw" class="btn btn-link" target="_blank">Twitter</a>
+      <a href="https://www.linkedin.com/in/joseph-daw" class="btn btn-link" target="_blank">LinkedIn</a>
+    </section>
+
   </footer>
+
 
   <!-- scripts -->
   <script src="assets/js/script.js"></script>
