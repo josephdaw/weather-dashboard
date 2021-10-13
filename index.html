@@ -17,6 +17,7 @@
 </head>
 
 <body>
+  <!-- header hero -->
   <header>
     <section class="hero is-info">
       <div class="hero-body">
@@ -30,12 +31,16 @@
     </section>
   </header>
 
+  <!-- main container to provide padding from screen edge -->
   <main class="container m-2">
 
     <div class="columns">
       <div class="column">
+
+        <!-- top row - search and current weather -->
         <div class="tile is-ancestor">
           <div class="tile is-parent">
+            <!-- location weather search section -->
             <article class="tile is-child box">
               <p class="title">Location Weather</p>
               <p class="subtitle">Look up weather forecasts from around the world.</p>
@@ -48,9 +53,28 @@
                     Search
                   </a>
                 </div>
+                
               </div>
+              <!-- unit radio selector -->
+              <div class="control">
+                <label class="radio">
+                  <input type="radio" name="unit" class="unit" id="unit-metric" val="metric" checked>
+                  Metric
+                </label>
+                <label class="radio">
+                  <input type="radio" name="unit" class="unit" id="unit-imperial" val="imperial">
+                  Imperial
+                </label>
+                <label class="radio">
+                  <input type="radio" name="unit" class="unit" id="unit-scientific" val="scientific">
+                  Scientific
+                </label>
+              </div>
+
             </article>
           </div>
+
+          <!-- current weather section -->
           <div id="forecast-container" class="tile is-parent is-hidden">
             <article class="tile is-child box">
               <p class="title">Adelaide</p>
@@ -66,6 +90,7 @@
 
         </div>
 
+        <!-- second row - long range forecast section -->
         <div id="long-range-forecast-container" class="tile is-ancestor is-hidden">
           <div class="tile is-parent">
             <article class="tile is-child box">
