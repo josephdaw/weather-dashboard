@@ -59,7 +59,7 @@ function getAPI() {
         temperatureUnit = units.temperature.imperial;
         windSpeedUnit = units.windSpeed.imperial;
       };
-      
+
       $('#temp-now').text(`Temperature: ${roundTemp}\xB0${temperatureUnit}`);
       $('#humidity-now').text(`Humidity: ${roundHumidity}%`);
       $('#wind-now').text(`Wind: ${data.wind.deg}\xB0T at ${roundWindSpeed} ${windSpeedUnit}`);
@@ -157,7 +157,6 @@ function displayForecastEl() {
 fetchButton.on('click', function(){
   getAPI();
   get5Day();
-
 });
 
 // listen for change of 'unit' radio buttons
