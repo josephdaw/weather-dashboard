@@ -3,6 +3,7 @@ const fetchButton = $('#fetch-button');
 const forecastContainerEl = $('#forecast-container');
 const longRngForecastContainerEl = $('#long-range-forecast-container');
 
+// object list with unit types based on user selection
 const units = 
   {
     temperature: 
@@ -19,7 +20,7 @@ const units =
     },
   };
 
-
+// function to get information from the API
 function getAPI() {
   const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
   const cityName = "Adelaide";
@@ -80,3 +81,9 @@ function displayForecastEl() {
 
 // event lister for 'search button' click
 fetchButton.on('click', getAPI);
+
+// listen for change of 'unit' radio buttons
+$(".unit").change(function(){
+  let val = $(".unit:checked").val();
+  alert(val);
+});
