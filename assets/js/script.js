@@ -73,6 +73,8 @@ function get5Day() {
   const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
   const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=${unitChoice}&appid=${apiKey}`;
 
+  clearForecastTiles()
+
   fetch(queryURL)
     .then(function (response) {
       return response.json();
@@ -138,6 +140,10 @@ function displayForecastEl() {
   longRngForecastContainerEl.removeClass('is-hidden');
 };
 
+// function to remove previous long range forecasts
+function clearForecastTiles() {
+  longRngForecastContainerEl.empty()
+};
 
 // event lister for 'search button' click
 fetchButton.on('click', getWeather);
