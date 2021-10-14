@@ -7,6 +7,9 @@ const longRngForecastContainerEl = $('#long-range-forecast-container');
 // CURRENTLY HARDCODED!!!
 let unitChoice = "metric";
 
+// city selection
+let cityName = "Adelaide";
+
 // object list with unit types based on user selection
 const units =
 {
@@ -27,7 +30,7 @@ const units =
 // function to get information from the API
 function getAPI() {
   const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
-  const cityName = "Adelaide";
+  // const cityName = "Adelaide";
 
 
   const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${unitChoice}&appid=${apiKey}`;
@@ -37,6 +40,7 @@ function getAPI() {
       return response.json();
     })
     .then(function (data) {
+      console.log(data)
       // variables for items
       const roundTemp = Math.round(data.main.temp);
       const roundHumidity = Math.round(data.main.humidity);
@@ -60,6 +64,7 @@ function getAPI() {
         windSpeedUnit = units.windSpeed.imperial;
       };
 
+      $('#location-name').text(data.name);
       $('#temp-now').text(`Temperature: ${roundTemp}\xB0${temperatureUnit}`);
       $('#humidity-now').text(`Humidity: ${roundHumidity}%`);
       $('#wind-now').text(`Wind: ${data.wind.deg}\xB0T at ${roundWindSpeed} ${windSpeedUnit}`);
@@ -67,16 +72,11 @@ function getAPI() {
 
       displayForecastEl()
     });
-
-
-
 };
 
 function get5Day() {
   const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
-  const cityName = "Adelaide";
-
-
+  // const cityName = "Adelaide";
   const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=${unitChoice}&appid=${apiKey}`;
 
   fetch(queryURL)
@@ -135,17 +135,9 @@ function get5Day() {
         tileEL.append(articleEL);
         $("#long-range-forecast-container").append(tileEL);
 
-      };
-
-
-
-
-      // displayForecastEl()
+      }; //END - for loop
     });
-
-
-
-};
+}; //END - get5Day()
 
 // function to unhide forecast container elements
 function displayForecastEl() {
@@ -155,6 +147,8 @@ function displayForecastEl() {
 
 // event lister for 'search button' click
 fetchButton.on('click', function(){
+  cityName = $("#city-input").val()
+  console.log(cityName)
   getAPI();
   get5Day();
 });

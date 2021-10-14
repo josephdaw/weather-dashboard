@@ -46,7 +46,7 @@
               <p class="subtitle">Look up weather forecasts from around the world.</p>
               <div class="field has-addons">
                 <div class="control">
-                  <input class="input" type="text" placeholder="Enter a Location">
+                  <input class="input" id="city-input" type="text" placeholder="Enter a Location">
                 </div>
                 <div class="control">
                   <a id="fetch-button" class="button is-info">
@@ -58,15 +58,15 @@
               <!-- unit radio selector -->
               <div class="control">
                 <label class="radio">
-                  <input type="radio" name="unit" class="unit" id="unit-metric" val="metric" checked>
+                  <input type="radio" name="unit" class="unit" id="unit-metric" value="metric" checked>
                   Metric
                 </label>
                 <label class="radio">
-                  <input type="radio" name="unit" class="unit" id="unit-imperial" val="imperial">
+                  <input type="radio" name="unit" class="unit" id="unit-imperial" value="imperial">
                   Imperial
                 </label>
                 <label class="radio">
-                  <input type="radio" name="unit" class="unit" id="unit-scientific" val="scientific">
+                  <input type="radio" name="unit" class="unit" id="unit-scientific" value="scientific">
                   Scientific
                 </label>
               </div>
@@ -77,7 +77,7 @@
           <!-- current weather section -->
           <div id="forecast-container" class="tile is-parent is-hidden">
             <article class="tile is-child box">
-              <p class="title">Adelaide</p>
+              <p id="location-name" class="title"></p>
               <p class="subtitle">Current Weather</p>
               <ul>
                 <li id="temp-now"></li>
