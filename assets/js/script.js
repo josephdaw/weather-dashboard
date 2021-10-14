@@ -3,12 +3,8 @@ const fetchButton = $('#fetch-button');
 const forecastContainerEl = $('#forecast-container');
 const longRngForecastContainerEl = $('#long-range-forecast-container');
 
-// variable for user selection of units
-// CURRENTLY HARDCODED!!!
-let unitChoice = "metric";
-
-// city selection
-let cityName = "Adelaide";
+// variables for user selection of units and city selection
+let unitChoice, cityName;
 
 // object list with unit types based on user selection
 const units =
@@ -29,10 +25,8 @@ const units =
 
 // function to get information from the API
 function getAPI() {
+  console.log('getAPI start')
   const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
-  // const cityName = "Adelaide";
-
-
   const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${unitChoice}&appid=${apiKey}`;
 
   fetch(queryURL)
@@ -75,8 +69,8 @@ function getAPI() {
 };
 
 function get5Day() {
+  console.log('get5Day start')
   const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
-  // const cityName = "Adelaide";
   const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=${unitChoice}&appid=${apiKey}`;
 
   fetch(queryURL)
@@ -93,8 +87,6 @@ function get5Day() {
         const roundTemp = Math.round(data.list[i].main.temp);
         const roundHumidity = Math.round(data.list[i].main.humidity);
         const roundWindSpeed = Math.round(data.list[i].wind.speed);
-
-        console.log(roundTemp)
 
         let temperatureUnit;
         let windSpeedUnit;
@@ -139,22 +131,28 @@ function get5Day() {
     });
 }; //END - get5Day()
 
+
 // function to unhide forecast container elements
 function displayForecastEl() {
   forecastContainerEl.removeClass('is-hidden');
   longRngForecastContainerEl.removeClass('is-hidden');
 };
 
+
 // event lister for 'search button' click
-fetchButton.on('click', function(){
-  cityName = $("#city-input").val()
-  console.log(cityName)
-  getAPI();
-  get5Day();
-});
+fetchButton.on('click', getWeather);
+
 
 // listen for change of 'unit' radio buttons
-$(".unit").change(function () {
-  let val = $(".unit:checked").val();
-  alert(val);
-});
+$(".unit").change(getWeather);
+
+
+// function linking all other functions together
+function getWeather() {
+  cityName = $("#city-input").val()
+  console.log(cityName)
+  unitChoice = $(".unit:checked").val();
+  console.log(unitChoice);
+  getAPI();
+  get5Day();
+};
