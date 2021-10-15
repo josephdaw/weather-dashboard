@@ -2,6 +2,8 @@
 const fetchButton = $('#fetch-button');
 const forecastContainerEl = $('#forecast-container');
 const longRngForecastContainerEl = $('#long-range-forecast-container');
+const locationInput = $("#city-input");
+const unitChecked = $(".unit:checked");
 
 // apiKey 
 const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
@@ -23,12 +25,8 @@ const units =
   },
 };
 
-// variables for user selection of units and city selection
-// let unitChoice, cityName;
-
 // variable to store search history
 let searchHistory = [];
-
 
 
 // function to get information from the API
@@ -59,7 +57,6 @@ function getCurrentWeather(location, unitChoice) {
 };
 
 function get5DayForecast(location, unitChoice) {
-  const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
   const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=${unitChoice}&appid=${apiKey}`;
 
   clearForecastTiles()
@@ -107,7 +104,7 @@ function get5DayForecast(location, unitChoice) {
         articleEL.append(headingEl);
         articleEL.append(unorderListEl)
         tileEL.append(articleEL);
-        $("#long-range-forecast-container").append(tileEL);
+        longRngForecastContainerEl.append(tileEL);
 
       }; //END - for loop
     });
@@ -161,12 +158,14 @@ function toTitleCase(string) {
 };
 
 
+
+
 // function to store search history in local storage
 function storeSearchHistory() {
   //check for a value in the input field
-  if ($("#city-input").val()){
+  if (locationInput.val()) {
     // convert user input to title case
-    let location = toTitleCase($("#city-input").val());
+    let location = toTitleCase(locationInput.val());
     // store location in local storage
     searchHistory.push(location);
     // store the score history in local storage
@@ -178,15 +177,18 @@ function storeSearchHistory() {
 function renderSearchHistory() {
   clearRenderedSearchHistory()
   for (i = 0; i < searchHistory.length; i++) {
+    // create button with a data-attr = location name
     const button = $('<button class="button">Button</button>');
     button.text(searchHistory[i]);
     button.attr('data-location', searchHistory[i]);
 
+    // append button to page
     $('#weather-section').append(button)
 
+    // use data-attr of button to call API
     button.on('click', function () {
-      $("#city-input").val("")
-      getWeather(button.attr('data-location'), $(".unit:checked").val())
+      locationInput.val("")
+      getWeather(button.attr('data-location'), unitChecked.val())
     });
 
   };
@@ -203,31 +205,28 @@ function clearForecastTiles() {
   longRngForecastContainerEl.empty()
 };
 
+// function to remove previous search history results from page
 function clearRenderedSearchHistory() {
   $('#weather-section').empty()
 };
 
 // event lister for 'search button' click
-fetchButton.on('click', function () { getWeather($("#city-input").val(), $(".unit:checked").val()) });
+fetchButton.on('click', function () { getWeather(locationInput.val(), unitChecked.val()) });
+
 
 
 // listen for change of 'unit' radio buttons
 $(".unit").change(function () {
-  if ($("#city-input").val()) { getWeather($("#city-input").val(), $(".unit:checked").val()) };
+  // check that there is a information in location text field
+  if (locationInput.val()) {
+    getWeather(locationInput.val(), unitChecked.val())
+  };
 }
 );
 
 
 // function linking all other functions together
 function getWeather(location, unitChoice) {
-  // cityName = $("#city-input").val()
-  // cityName = location
-  // // console.log(cityName)
-
-  // // unitChoice = $(".unit:checked").val();
-  // unitChoice = unit
-  // console.log(unitChoice);
-
 
   storeSearchHistory()
   renderSearchHistory()
