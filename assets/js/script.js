@@ -59,7 +59,6 @@ function getCurrentWeather() {
 };
 
 function get5DayForecast() {
-  // console.log('get5Day start')
   const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
   const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=${unitChoice}&appid=${apiKey}`;
 
@@ -74,6 +73,7 @@ function get5DayForecast() {
       // loop through weather forecast array
       for (i = 0; i < 5; i++) {
         const wxData = data.list[i];
+        console.log(wxData)
 
         // call function to prepare weather data
         const weather = prepareWeather(wxData)
@@ -81,11 +81,17 @@ function get5DayForecast() {
         // call function to get user selected units
         const selectedUnit = setUnits();
 
+        const day = moment.unix(wxData.dt).format('MMMM Do YYYY, H:mm')
+        //const day = 
+
         // create parent elements
         const tileEL = $('<div class="tile is-parent">');
         const articleEL = $('<article class="tile is-child box">');
         const headingEl = $('<h2 class="subtitle">');
         const unorderListEl = $('<ul>');
+
+        // display date as heading
+        headingEl.text(day)
 
         // create list elements
         const tempEl = $('<li>').text(`Temperature: ${weather.temp}\xB0${selectedUnit.temperatureUnit}`);
@@ -211,7 +217,7 @@ function getWeather() {
 
   storeSearchHistory()
   renderSearchHistory()
-  
+
   getCurrentWeather();
   get5DayForecast();
 
