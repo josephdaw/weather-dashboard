@@ -26,7 +26,8 @@ This project requires a good understanding of server-side APIs.
 I made use of an alternative framework to Bootstrap for this project. The framework I chose was Bulma. It has reasonably good documentation and has been relatively easy to implement. I don't think that it is a feature-filled as Bootstrap, but I found it easier to implement then a couple of others I have tried.
 
 ## Credits
-This user story is part of the [Adelaide University Coding Boot Camp](https://bootcamps.adelaide.edu.au).
+- This user story is part of the [Adelaide University Coding Boot Camp](https://bootcamps.adelaide.edu.au).
+- [UV Index colour standards](https://www.who.int/uv/publications/en/UVIclip.pdf)
 
 ## License
 This project is released under the [MIT License](LICENSE)

@@ -43,8 +43,8 @@ function getCurrentWeather(location, unitChoice) {
     .then(function (data) {
       const lat = data.coord.lat;
       const long = data.coord.lon;
-      console.log(lat, long);
       
+      // get UV index
       currentUV(lat, long)
 
       // call function to prepare weather data
@@ -57,10 +57,7 @@ function getCurrentWeather(location, unitChoice) {
       $('#temp-now').text(`Temperature: ${weather.temp}\xB0${selectedUnit.temperatureUnit}`);
       $('#humidity-now').text(`Humidity: ${weather.humidity}%`);
       $('#wind-now').text(`Wind: ${data.wind.deg}\xB0T at ${weather.windSpeed} ${selectedUnit.windSpeedUnit}`);
-      
-
-      
-
+    
     })
     
     displayForecastEl()
@@ -90,7 +87,6 @@ function get5DayForecast(location, unitChoice) {
         const selectedUnit = setUnits(unitChoice);
 
         const day = moment.unix(wxData.dt).format('MMMM Do YYYY, H:mm')
-        //const day = 
 
         // create parent elements
         const tileEL = $('<div class="tile is-parent">');
@@ -134,10 +130,12 @@ function currentUV(lat, long) {
       console.log(data)
       const uvIndex = data.current.uvi;
       console.log(uvIndex)
+
+      uvIndexColour(uvIndex)
       // .then(function(){
       //   const roundUV = currentUV(lat, long)
       //   console.log(roundUV)
-        $('#uv-now').text(`UV Index: ${uvIndex}`);
+        $('#uv-now').text(`${uvIndex}`);
         
         // displayForecastEl()
 
@@ -194,7 +192,16 @@ function toTitleCase(string) {
   });
 };
 
+function uvIndexColour(uvIndex){
+  const uvSpan = $('#uv-now');
+  uvSpan.removeClass();
 
+  if (uvIndex <= 2){uvSpan.addClass('low')};
+  if (uvIndex > 2){uvSpan.addClass('moderate')};
+  if (uvIndex > 5){uvSpan.addClass('high')};
+  if (uvIndex > 7){uvSpan.addClass('very-high')};
+  if (uvIndex > 10){uvSpan.addClass('extreme')};
+};
 
 
 // function to store search history in local storage

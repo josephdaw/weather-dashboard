@@ -10,10 +10,44 @@ footer {
     margin-top: auto;
 }
 
-.footer{
+.footer {
     background-color: #e2e2e2;
 }
 
-.is-ancestor{
+.is-ancestor {
     flex-wrap: wrap;
+}
+
+.line-height {
+    line-height: 1.5em;
+}
+
+.low {
+    background-color: rgb(40, 149, 0);
+    color: white;
+}
+
+.moderate {
+    background-color: rgb(247, 228, 0);
+    color: black;
+}
+
+.high {
+    background-color: rgb(248, 89, 0);
+    color: black;
+}
+
+.very-high {
+    background-color: rgb(216, 0, 29);
+    color: white;
+}
+
+.extreme {
+    background-color: rgb(107, 73, 200);
+    color: white;
+}
+
+#uv-now {
+    padding: 3px;
+    border-radius: 6px;
 }
