@@ -116,7 +116,7 @@ function prepareWeather(data) {
 
 };
 
-
+// function to return the required units based on users selection
 function setUnits() {
   // set unit values
   if (unitChoice == "metric") {
@@ -157,7 +157,10 @@ fetchButton.on('click', getWeather);
 
 
 // listen for change of 'unit' radio buttons
-$(".unit").change(getWeather);
+$(".unit").change(function () {
+  if ($("#city-input").val()) { getWeather() };
+}
+);
 
 
 // function linking all other functions together
