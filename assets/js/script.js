@@ -45,8 +45,7 @@ function getCurrentWeather(location, unitChoice) {
       const long = data.coord.lon;
       console.log(lat, long);
       
-      const roundUV = currentUV(lat, long)
-      console.log(roundUV)
+      currentUV(lat, long)
 
       // call function to prepare weather data
       const weather = prepareWeather(data)
@@ -58,11 +57,13 @@ function getCurrentWeather(location, unitChoice) {
       $('#temp-now').text(`Temperature: ${weather.temp}\xB0${selectedUnit.temperatureUnit}`);
       $('#humidity-now').text(`Humidity: ${weather.humidity}%`);
       $('#wind-now').text(`Wind: ${data.wind.deg}\xB0T at ${weather.windSpeed} ${selectedUnit.windSpeedUnit}`);
-      $('#uv-now').text(`UV Index: ${roundUV}`);
+      
 
-      displayForecastEl()
+      
 
     })
+    
+    displayForecastEl()
 };
 
 function get5DayForecast(location, unitChoice) {
@@ -133,7 +134,14 @@ function currentUV(lat, long) {
       console.log(data)
       const uvIndex = data.current.uvi;
       console.log(uvIndex)
-      return uvIndex;
+      // .then(function(){
+      //   const roundUV = currentUV(lat, long)
+      //   console.log(roundUV)
+        $('#uv-now').text(`UV Index: ${uvIndex}`);
+        
+        // displayForecastEl()
+
+      // return uvIndex;
     })
 };
 
