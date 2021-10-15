@@ -41,6 +41,12 @@ function getCurrentWeather(location, unitChoice) {
       return response.json();
     })
     .then(function (data) {
+      const lat = data.coord.lat;
+      const long = data.coord.lon;
+      console.log(lat, long);
+      
+      const roundUV = currentUV(lat, long)
+      console.log(roundUV)
 
       // call function to prepare weather data
       const weather = prepareWeather(data)
@@ -52,11 +58,11 @@ function getCurrentWeather(location, unitChoice) {
       $('#temp-now').text(`Temperature: ${weather.temp}\xB0${selectedUnit.temperatureUnit}`);
       $('#humidity-now').text(`Humidity: ${weather.humidity}%`);
       $('#wind-now').text(`Wind: ${data.wind.deg}\xB0T at ${weather.windSpeed} ${selectedUnit.windSpeedUnit}`);
-      // $('#uv-now').text(`UV Index: ${roundUV} NEED TO FIX`);
+      $('#uv-now').text(`UV Index: ${roundUV}`);
 
       displayForecastEl()
 
-    });
+    })
 };
 
 function get5DayForecast(location, unitChoice) {
@@ -114,6 +120,25 @@ function get5DayForecast(location, unitChoice) {
     });
 }; //END - get5Day()
 
+// function for UV index API
+function currentUV(lat, long) {
+  const exclude = "minutely,hourly,daily,alerts"
+  const queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=${exclude}&appid=${apiKey}`
+  
+  fetch(queryURL)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+      const uvIndex = data.current.uvi;
+      console.log(uvIndex)
+      return uvIndex;
+    })
+};
+
+
+
 
 // create a function to return an object of weather based on user units
 function prepareWeather(data) {
@@ -166,15 +191,15 @@ function toTitleCase(string) {
 
 // function to store search history in local storage
 function storeSearchHistory() {
-  if ($("#city-input").val()){
+  if ($("#city-input").val()) {
     // convert user input to title case
-  let location = toTitleCase($("#city-input").val());
-  // store location in local storage
-  searchHistory.push(location);
-  // store the score history in local storage
-  localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    let location = toTitleCase($("#city-input").val());
+    // store location in local storage
+    searchHistory.push(location);
+    // store the score history in local storage
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
   }
-  
+
 };
 
 // function to render the stored searc history to the page
@@ -206,7 +231,7 @@ function clearForecastTiles() {
   longRngForecastContainerEl.empty()
 };
 
-function clearRenderedSearchHistory(){
+function clearRenderedSearchHistory() {
   $('#weather-section').empty()
 };
 
