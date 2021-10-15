@@ -53,7 +53,13 @@ function getCurrentWeather(location, unitChoice) {
       // call function to get user selected units
       const selectedUnit = setUnits(unitChoice);
 
+      // get current time
+      const day = moment.unix(data.dt).format('MMMM Do YYYY, H:mm')
+
       $('#location-name').text(data.name);
+      $('#date-now').text(day);
+      $('#description-now').text(weather.description);
+      $('#icon-now').attr('src',`http://openweathermap.org/img/wn/${weather.icon}@2x.png`)
       $('#temp-now').text(`Temperature: ${weather.temp}\xB0${selectedUnit.temperatureUnit}`);
       $('#humidity-now').text(`Humidity: ${weather.humidity}%`);
       $('#wind-now').text(`Wind: ${data.wind.deg}\xB0T at ${weather.windSpeed} ${selectedUnit.windSpeedUnit}`);
@@ -153,6 +159,8 @@ function prepareWeather(data) {
     temp: Math.round(data.main.temp),
     humidity: Math.round(data.main.humidity),
     windSpeed: Math.round(data.wind.speed),
+    description: data.weather[0].description,
+    icon: data.weather[0].icon
   };
 
   return weather;
@@ -192,6 +200,7 @@ function toTitleCase(string) {
   });
 };
 
+// function to display 
 function uvIndexColour(uvIndex){
   const uvSpan = $('#uv-now');
   uvSpan.removeClass();
