@@ -3,9 +3,6 @@ const fetchButton = $('#fetch-button');
 const forecastContainerEl = $('#forecast-container');
 const longRngForecastContainerEl = $('#long-range-forecast-container');
 
-// variables for user selection of units and city selection
-let unitChoice, cityName;
-
 // apiKey 
 const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
 
@@ -26,8 +23,16 @@ const units =
   },
 };
 
+// variables for user selection of units and city selection
+let unitChoice, cityName;
+
+// variable to store search history
+let searchHistory = [];
+
+
+
 // function to get information from the API
-function getAPI() {
+function getCurrentWeather() {
   const queryURL = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${unitChoice}&appid=${apiKey}`;
 
   fetch(queryURL)
@@ -53,7 +58,7 @@ function getAPI() {
     });
 };
 
-function get5Day() {
+function get5DayForecast() {
   // console.log('get5Day start')
   const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
   const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=${unitChoice}&appid=${apiKey}`;
@@ -141,6 +146,35 @@ function setUnits() {
 
 };
 
+// function to title case - Ben Blank & RBizzle- https://stackoverflow.com/questions/5086390/jquery-title-case
+function toTitleCase(string) {
+  var lowerCaseString = string.toLowerCase();
+  return lowerCaseString.replace(/(?:^|\s)\w/g, function (match) {
+    return match.toUpperCase();
+  });
+};
+
+
+// function to store search history in local storage
+function storeSearchHistory() {
+  // convert user input to title case
+  let location = toTitleCase($("#city-input").val());
+  // store location in local storage
+  searchHistory.push(location);
+  // store the score history in local storage
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+};
+
+// function to render the stored searc history to the page
+function renderSearchHistory(){
+  clearRenderedSearchHistory()
+  for (i = 0; i < searchHistory.length; i++){
+    $('#weather-section')
+    .append($('<button class="button">Button</button>')
+    .text(searchHistory[i]))
+  };
+};
+
 // function to unhide forecast container elements
 function displayForecastEl() {
   forecastContainerEl.removeClass('is-hidden');
@@ -150,6 +184,10 @@ function displayForecastEl() {
 // function to remove previous long range forecasts
 function clearForecastTiles() {
   longRngForecastContainerEl.empty()
+};
+
+function clearRenderedSearchHistory(){
+  $('#weather-section').empty()
 };
 
 // event lister for 'search button' click
@@ -167,8 +205,29 @@ $(".unit").change(function () {
 function getWeather() {
   cityName = $("#city-input").val()
   console.log(cityName)
+
   unitChoice = $(".unit:checked").val();
   console.log(unitChoice);
-  getAPI();
-  get5Day();
+
+  storeSearchHistory()
+  renderSearchHistory()
+  
+  getCurrentWeather();
+  get5DayForecast();
+
 };
+
+// initialise function
+function init() {
+  // get any stored scores
+  var storedSearchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+
+  // if there are stored values, save them to the variable
+  if (storedSearchHistory !== null) {
+    searchHistory = storedSearchHistory
+  };
+
+  renderSearchHistory();
+};
+
+init();
