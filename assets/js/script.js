@@ -41,6 +41,9 @@ function getCurrentWeather(location, unitChoice) {
       return response.json();
     })
     .then(function (data) {
+      // get lat and long data from selected location
+      const lat = data.coord.lat;
+      const long = data.coord.lon;
 
       // get UV index
       currentUV(lat, long)
@@ -88,7 +91,7 @@ function get5DayForecast(location, unitChoice) {
         // call function to get user selected units
         const selectedUnit = setUnits(unitChoice);
         // format the date
-        const day = moment.unix(wxData.dt).format('MMMM Do YYYY, H:mm')
+        const day = moment.unix(wxData.dt).format('MMMM Do YYYY')
 
         // create parent elements
         const tileEL = $('<div class="tile is-parent">');
@@ -220,6 +223,7 @@ function storeSearchHistory() {
 // function to render the stored searc history to the page
 function renderSearchHistory() {
   clearRenderedSearchHistory()
+
   for (i = 0; i < searchHistory.length; i++) {
     const button = $('<button class="button">Button</button>');
     button.text(searchHistory[i]);
@@ -264,8 +268,8 @@ $(".unit").change(function () {
 // function linking all other functions together
 function getWeather(location, unitChoice) {
   // get user input for location and unit
-  cityName = locationInput.val()
-  unitChoice = unitChecked.val();
+  // cityName = locationInput.val()
+  // unitChoice = unitChecked.val();
 
   storeSearchHistory()
   renderSearchHistory()
