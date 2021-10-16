@@ -41,8 +41,6 @@ function getCurrentWeather(location, unitChoice) {
       return response.json();
     })
     .then(function (data) {
-      const lat = data.coord.lat;
-      const long = data.coord.lon;
 
       // get UV index
       currentUV(lat, long)
@@ -88,10 +86,9 @@ function get5DayForecast(location, unitChoice) {
 
         // call function to prepare weather data
         const weather = prepareWeather(wxData)
-
         // call function to get user selected units
         const selectedUnit = setUnits(unitChoice);
-
+        // format the date
         const day = moment.unix(wxData.dt).format('MMMM Do YYYY, H:mm')
 
         // create parent elements
@@ -106,7 +103,6 @@ function get5DayForecast(location, unitChoice) {
         headingEl.text(day)
         descriptionEl.text(toTitleCase(weather.description));
         iconEl.attr('src', `http://openweathermap.org/img/wn/${weather.icon}@2x.png`)
-
 
         // create list elements
         const tempEl = $('<li>').text(`Temperature: ${weather.temp}\xB0${selectedUnit.temperatureUnit}`);
@@ -138,19 +134,12 @@ function currentUV(lat, long) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
+
       const uvIndex = data.current.uvi;
-      console.log(uvIndex)
 
       uvIndexColour(uvIndex)
-      // .then(function(){
-      //   const roundUV = currentUV(lat, long)
-      //   console.log(roundUV)
+
       $('#uv-now').text(`${uvIndex}`);
-
-      // displayForecastEl()
-
-      // return uvIndex;
     })
 };
 
@@ -169,7 +158,6 @@ function prepareWeather(data) {
   };
 
   return weather;
-
 };
 
 // function to return the required units based on users selection
@@ -231,9 +219,7 @@ function storeSearchHistory() {
       // store the score history in local storage
       localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
     };
-
-  }
-
+  };
 };
 
 // function to render the stored searc history to the page
@@ -272,32 +258,25 @@ function clearRenderedSearchHistory() {
 // event lister for 'search button' click
 fetchButton.on('click', function () { getWeather(locationInput.val(), unitChecked.val()) });
 
-
-
 // listen for change of 'unit' radio buttons
 $(".unit").change(function () {
   // check that there is a information in location text field
   if (locationInput.val()) {
     getWeather(locationInput.val(), unitChecked.val())
   };
-}
-);
-
+});
 
 // function linking all other functions together
 function getWeather(location, unitChoice) {
+  // get user input for location and unit
   cityName = $("#city-input").val()
-  console.log(cityName)
-
   unitChoice = $(".unit:checked").val();
-  console.log(unitChoice);
 
   storeSearchHistory()
   renderSearchHistory()
 
   getCurrentWeather(location, unitChoice);
   get5DayForecast(location, unitChoice);
-
 };
 
 // initialise function
@@ -309,7 +288,6 @@ function init() {
   if (storedSearchHistory !== null) {
     searchHistory = storedSearchHistory
   };
-
   renderSearchHistory();
 };
 
