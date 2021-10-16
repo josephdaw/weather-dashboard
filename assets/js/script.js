@@ -43,7 +43,7 @@ function getCurrentWeather(location, unitChoice) {
     .then(function (data) {
       const lat = data.coord.lat;
       const long = data.coord.lon;
-      
+
       // get UV index
       currentUV(lat, long)
 
@@ -59,14 +59,14 @@ function getCurrentWeather(location, unitChoice) {
       $('#location-name').text(data.name);
       $('#date-now').text(day);
       $('#description-now').text(toTitleCase(weather.description));
-      $('#icon-now').attr('src',`http://openweathermap.org/img/wn/${weather.icon}@2x.png`)
+      $('#icon-now').attr('src', `http://openweathermap.org/img/wn/${weather.icon}@2x.png`)
       $('#temp-now').text(`Temperature: ${weather.temp}\xB0${selectedUnit.temperatureUnit}`);
       $('#humidity-now').text(`Humidity: ${weather.humidity}%`);
       $('#wind-now').text(`Wind: ${data.wind.deg}\xB0T at ${weather.windSpeed} ${selectedUnit.windSpeedUnit}`);
-    
+
     })
-    
-    displayForecastEl()
+
+  displayForecastEl()
 };
 
 function get5DayForecast(location, unitChoice) {
@@ -82,7 +82,7 @@ function get5DayForecast(location, unitChoice) {
     .then(function (data) {
       console.log(data)
       // loop through weather forecast array
-      for (i = 7; i < data.list.length; i+=8) {
+      for (i = 7; i < data.list.length; i += 8) {
         const wxData = data.list[i];
         console.log(wxData)
 
@@ -98,14 +98,14 @@ function get5DayForecast(location, unitChoice) {
         const tileEL = $('<div class="tile is-parent">');
         const articleEL = $('<article class="tile is-child box">');
         const headingEl = $('<h2 class="subtitle">');
-        const descriptionEl =  $('<p class="subtitle">')
+        const descriptionEl = $('<p class="subtitle">')
         const iconEl = $('<img src="" alt="">')
         const unorderListEl = $('<ul>');
 
         // display date, description, and icon
         headingEl.text(day)
         descriptionEl.text(toTitleCase(weather.description));
-        iconEl.attr('src',`http://openweathermap.org/img/wn/${weather.icon}@2x.png`)
+        iconEl.attr('src', `http://openweathermap.org/img/wn/${weather.icon}@2x.png`)
 
 
         // create list elements
@@ -132,7 +132,7 @@ function get5DayForecast(location, unitChoice) {
 function currentUV(lat, long) {
   const exclude = "minutely,hourly,daily,alerts"
   const queryURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=${exclude}&appid=${apiKey}`
-  
+
   fetch(queryURL)
     .then(function (response) {
       return response.json();
@@ -146,9 +146,9 @@ function currentUV(lat, long) {
       // .then(function(){
       //   const roundUV = currentUV(lat, long)
       //   console.log(roundUV)
-        $('#uv-now').text(`${uvIndex}`);
-        
-        // displayForecastEl()
+      $('#uv-now').text(`${uvIndex}`);
+
+      // displayForecastEl()
 
       // return uvIndex;
     })
@@ -206,27 +206,32 @@ function toTitleCase(string) {
 };
 
 // function to display 
-function uvIndexColour(uvIndex){
+function uvIndexColour(uvIndex) {
   const uvSpan = $('#uv-now');
   uvSpan.removeClass();
 
-  if (uvIndex <= 2){uvSpan.addClass('low')};
-  if (uvIndex > 2){uvSpan.addClass('moderate')};
-  if (uvIndex > 5){uvSpan.addClass('high')};
-  if (uvIndex > 7){uvSpan.addClass('very-high')};
-  if (uvIndex > 10){uvSpan.addClass('extreme')};
+  if (uvIndex <= 2) { uvSpan.addClass('low') };
+  if (uvIndex > 2) { uvSpan.addClass('moderate') };
+  if (uvIndex > 5) { uvSpan.addClass('high') };
+  if (uvIndex > 7) { uvSpan.addClass('very-high') };
+  if (uvIndex > 10) { uvSpan.addClass('extreme') };
 };
 
 
 // function to store search history in local storage
 function storeSearchHistory() {
+  // check for a value in the input field
   if ($("#city-input").val()) {
     // convert user input to title case
     let location = toTitleCase($("#city-input").val());
-    // store location in local storage
-    searchHistory.push(location);
-    // store the score history in local storage
-    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    // check the location doens't already exist in history
+    if (searchHistory.indexOf(location) === -1) {
+      // store location in local storage
+      searchHistory.push(location);
+      // store the score history in local storage
+      localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+    };
+
   }
 
 };
