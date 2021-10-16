@@ -58,7 +58,7 @@ function getCurrentWeather(location, unitChoice) {
 
       $('#location-name').text(data.name);
       $('#date-now').text(day);
-      $('#description-now').text(weather.description);
+      $('#description-now').text(toTitleCase(weather.description));
       $('#icon-now').attr('src',`http://openweathermap.org/img/wn/${weather.icon}@2x.png`)
       $('#temp-now').text(`Temperature: ${weather.temp}\xB0${selectedUnit.temperatureUnit}`);
       $('#humidity-now').text(`Humidity: ${weather.humidity}%`);
@@ -80,9 +80,9 @@ function get5DayForecast(location, unitChoice) {
       return response.json();
     })
     .then(function (data) {
-
+      console.log(data)
       // loop through weather forecast array
-      for (i = 0; i < 5; i++) {
+      for (i = 7; i < data.list.length; i+=8) {
         const wxData = data.list[i];
         console.log(wxData)
 
@@ -98,10 +98,15 @@ function get5DayForecast(location, unitChoice) {
         const tileEL = $('<div class="tile is-parent">');
         const articleEL = $('<article class="tile is-child box">');
         const headingEl = $('<h2 class="subtitle">');
+        const descriptionEl =  $('<p class="subtitle">')
+        const iconEl = $('<img src="" alt="">')
         const unorderListEl = $('<ul>');
 
-        // display date as heading
+        // display date, description, and icon
         headingEl.text(day)
+        descriptionEl.text(toTitleCase(weather.description));
+        iconEl.attr('src',`http://openweathermap.org/img/wn/${weather.icon}@2x.png`)
+
 
         // create list elements
         const tempEl = $('<li>').text(`Temperature: ${weather.temp}\xB0${selectedUnit.temperatureUnit}`);
@@ -114,7 +119,7 @@ function get5DayForecast(location, unitChoice) {
         unorderListEl.append(windEl);
 
         // add elements to the page
-        articleEL.append(headingEl);
+        articleEL.append(headingEl, descriptionEl, iconEl);
         articleEL.append(unorderListEl)
         tileEL.append(articleEL);
         longRngForecastContainerEl.append(tileEL);
