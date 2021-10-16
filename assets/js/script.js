@@ -26,7 +26,7 @@ const units =
 };
 
 // variables for user selection of units and city selection
-let unitChoice, cityName;
+// let unitChoice, cityName;
 
 // variable to store search history
 let searchHistory = [];
@@ -68,7 +68,7 @@ function getCurrentWeather(location, unitChoice) {
 };
 
 function get5DayForecast(location, unitChoice) {
-  const apiKey = "a1c1d7b47658fe7dae2174e70fccbcd7";
+
   const queryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=${unitChoice}&appid=${apiKey}`;
 
   clearForecastTiles()
@@ -78,11 +78,10 @@ function get5DayForecast(location, unitChoice) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
+
       // loop through weather forecast array
       for (i = 7; i < data.list.length; i += 8) {
         const wxData = data.list[i];
-        console.log(wxData)
 
         // call function to prepare weather data
         const weather = prepareWeather(wxData)
@@ -119,7 +118,6 @@ function get5DayForecast(location, unitChoice) {
         articleEL.append(unorderListEl)
         tileEL.append(articleEL);
         longRngForecastContainerEl.append(tileEL);
-
       }; //END - for loop
     });
 }; //END - get5Day()
@@ -134,11 +132,11 @@ function currentUV(lat, long) {
       return response.json();
     })
     .then(function (data) {
-
+      // get uvi from data
       const uvIndex = data.current.uvi;
-
+      // apply background styling based on UV index value
       uvIndexColour(uvIndex)
-
+      // display UV to page
       $('#uv-now').text(`${uvIndex}`);
     })
 };
@@ -156,7 +154,6 @@ function prepareWeather(data) {
     description: data.weather[0].description,
     icon: data.weather[0].icon
   };
-
   return weather;
 };
 
@@ -168,7 +165,6 @@ function setUnits(unitChoice) {
       temperatureUnit: units.temperature.metric,
       windSpeedUnit: units.windSpeed.metric
     }
-
   };
   if (unitChoice == "standard") {
     return {
@@ -182,7 +178,6 @@ function setUnits(unitChoice) {
       windSpeedUnit: units.windSpeed.imperial
     }
   };
-
 };
 
 // function to title case - Ben Blank & RBizzle- https://stackoverflow.com/questions/5086390/jquery-title-case
@@ -209,9 +204,9 @@ function uvIndexColour(uvIndex) {
 // function to store search history in local storage
 function storeSearchHistory() {
   // check for a value in the input field
-  if ($("#city-input").val()) {
+  if (locationInput.val()) {
     // convert user input to title case
-    let location = toTitleCase($("#city-input").val());
+    let location = toTitleCase(locationInput.val());
     // check the location doens't already exist in history
     if (searchHistory.indexOf(location) === -1) {
       // store location in local storage
@@ -233,8 +228,8 @@ function renderSearchHistory() {
     $('#weather-section').append(button)
 
     button.on('click', function () {
-      $("#city-input").val("")
-      getWeather(button.attr('data-location'), $(".unit:checked").val())
+      locationInput.val("")
+      getWeather(button.attr('data-location'), unitChecked.val())
     });
 
   };
@@ -269,8 +264,8 @@ $(".unit").change(function () {
 // function linking all other functions together
 function getWeather(location, unitChoice) {
   // get user input for location and unit
-  cityName = $("#city-input").val()
-  unitChoice = $(".unit:checked").val();
+  cityName = locationInput.val()
+  unitChoice = unitChecked.val();
 
   storeSearchHistory()
   renderSearchHistory()
