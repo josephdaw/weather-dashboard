@@ -219,7 +219,7 @@ function renderSearchHistory() {
   clearRenderedSearchHistory()
 
   for (i = 0; i < searchHistory.length; i++) {
-    const button = $('<button class="button">Button</button>');
+    const button = $('<button class="button mx-1">Button</button>');
     button.text(searchHistory[i]);
     button.attr('data-location', searchHistory[i]);
 
@@ -256,7 +256,7 @@ $(".unit").change(function () {
   const lastLocation = JSON.parse(localStorage.getItem("lastLocation"));
   // get selected unit
   const selectedUnit = $(".unit:checked").val()
-  
+
   // check that there is a information in location text field
   if (locationInput.val()) {
     getWeather(locationInput.val(), selectedUnit);
