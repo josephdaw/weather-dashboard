@@ -51,7 +51,7 @@ function getCurrentWeather(location, unitChoice) {
       const selectedUnit = setUnits(unitChoice);
 
       // get current time
-      const day = moment.unix(data.dt).format('MMMM Do YYYY, H:mm')
+      const day = moment.unix(data.dt).format('ddd, MMMM Do YYYY, H:mm')
 
       $('#location-name').text(data.name);
       $('#date-now').text(day);
@@ -86,7 +86,7 @@ function get5DayForecast(location, unitChoice) {
         // call function to get user selected units
         const selectedUnit = setUnits(unitChoice);
         // format the date
-        const day = moment.unix(wxData.dt).format('MMMM Do YYYY')
+        const day = moment.unix(wxData.dt).format('ddd, MMM Do')
 
         // create parent elements
         const tileEL = $('<div class="tile is-parent">');
@@ -204,8 +204,10 @@ function storeSearchHistory(search) {
     let location = toTitleCase(locationInput.val());
     // check the location doens't already exist in history
     if (searchHistory.indexOf(location) === -1) {
-      // store location in local storage
-      searchHistory.push(location);
+      // store search location at the start of local storage
+      searchHistory.unshift(location);
+      // keep the search history to maximum of 5
+      if (searchHistory.length > 5){searchHistory.pop()};
       // store the score history in local storage
       localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
     };
@@ -219,7 +221,7 @@ function renderSearchHistory() {
   clearRenderedSearchHistory()
 
   for (i = 0; i < searchHistory.length; i++) {
-    const button = $('<button class="button mx-1">Button</button>');
+    const button = $('<button class="button m-1">Button</button>');
     button.text(searchHistory[i]);
     button.attr('data-location', searchHistory[i]);
 
