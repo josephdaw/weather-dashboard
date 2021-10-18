@@ -45,16 +45,16 @@
               <p class="title">Location Weather</p>
               <p class="subtitle">Look up weather forecasts from around the world.</p>
               <p>If there are multiple locations around the world with a similar name, you may need to include the state and country in your search.</p>
-              <div class="field has-addons mt-2">
+              <!-- search field -->
+              <form class="field has-addons mt-2">
                 <div class="control">
                   <input class="input" id="city-input" type="text" placeholder="Location, State, Country">
                 </div>
                 <div class="control">
-                  <a id="fetch-button" class="button is-info">
-                    Search
-                  </a>
+                  <input type="submit" id="fetch-button" class="button is-info" value="Submit">
                 </div>
-              </div>
+              </form>
+
               <!-- unit radio selector -->
               <div class="control">
                 <label class="radio">

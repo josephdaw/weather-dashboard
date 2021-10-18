@@ -214,6 +214,8 @@ function storeSearchHistory(search) {
   };
   // save the last search to local storage for use in $(".unit").change function
   localStorage.setItem("lastLocation", JSON.stringify(search))
+  // clear the location input field
+  locationInput.val("")
 };
 
 // function to render the stored searc history to the page
@@ -228,7 +230,6 @@ function renderSearchHistory() {
     $('#weather-section').append(button)
 
     button.on('click', function () {
-      locationInput.val("")
       getWeather(button.attr('data-location'), $(".unit:checked").val())
     });
   };
@@ -250,7 +251,10 @@ function clearRenderedSearchHistory() {
 };
 
 // event lister for 'search button' click
-fetchButton.on('click', function () { getWeather(locationInput.val(), $(".unit:checked").val()) });
+fetchButton.on('click', function (event) { 
+  event.preventDefault();
+  getWeather(locationInput.val(), $(".unit:checked").val()) 
+});
 
 // listen for change of 'unit' radio buttons
 $(".unit").change(function () {
