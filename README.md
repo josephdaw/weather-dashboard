@@ -17,6 +17,8 @@
 ## Description
 A weather dashboard that will run in the browser and feature dynamically updated HTML and CSS utilising the OpenWeather One Call API.
 
+This project is deployed using GitHub pages at https://josephdaw.github.io/weather-dashboard/
+
 ### User Story
 ```
 AS A traveler
