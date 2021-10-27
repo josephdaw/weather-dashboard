@@ -2,6 +2,12 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?&logo=javascript&logoColor=%23F7DF1E)
+![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?&logo=jquery&logoColor=white)
+![Bulma](https://img.shields.io/badge/bulma-01d1b2.svg?&logo=bulma&logoColor=white)
+
 ## Table of Contents
 - [Description](#description)
 - [Lessons](#lessons)
