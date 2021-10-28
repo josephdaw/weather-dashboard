@@ -18,6 +18,8 @@
 A weather dashboard that will run in the browser and feature dynamically updated HTML and CSS utilising the OpenWeather One Call API.
 
 This project is deployed using GitHub pages at https://josephdaw.github.io/weather-dashboard/
+![weather dashboard](assets/img/weather-landing-page.png)
+![weather search results](assets/img/weather-search-results.png)
 
 ### User Story
 ```
