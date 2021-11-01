@@ -35,7 +35,7 @@ The following image shows a proposal of the web application's appearance and fun
 This project requires a good understanding of server-side APIs. 
 I made use of an alternative framework to Bootstrap for this project. The framework I chose was Bulma. It has reasonably good documentation and has been relatively easy to implement. I don't think that it is a feature-filled as Bootstrap, but I found it easier to implement then a couple of others I tried.
 
-This is my most indepth project so far. I have tried to include as much functionality as I could. This lead me to the decision to allow the user to select the units they would like the weather to be displayed in. Throughout this project I have tried to minimise any repeated or unnecessary code as much as possible. This has sometimes streched my abilities and resulted in me breaking something, sometimes to the point I would have to backtrack to the previous Git Commit and start again. While this proved challenging and indeed frustrating, I believe that I have learned a lot from the process.
+This is my most indepth project so far. I have tried to include as much functionality as I could. This led me to the decision to allow the user to select the units they would like the weather to be displayed in. Throughout this project I have tried to minimise any repeated or unnecessary code as much as possible. This has sometimes stretched my abilities and resulted in me breaking something, sometimes to the point I would have to backtrack to the previous Git Commit and start again. While this proved challenging and indeed frustrating, I believe that I have learned a lot from the process.
 
 ## Credits
 - This user story is part of the [Adelaide University Coding Boot Camp](https://bootcamps.adelaide.edu.au).
